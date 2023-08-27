@@ -4,6 +4,23 @@
     ViewData["Title"] = "Create";
 }
 
+@{
+    ViewData["Title"] = "Create";
+
+    // Define the data source for the Type dropdown
+    List<string> typeOptions = new List<string> { "Expense", "Income" };
+
+    var iconOptions = new List<object>
+    {
+        new { text = "✈", iconCss = "e-icons e-icon1" },
+        new { text = "🏕", iconCss = "e-icons e-icon2" },
+        new { text = "🤳", iconCss = "e-icons e-icon3" },
+        new { text = "🚙", iconCss = "e-icons e-icon4" },
+        new { text = "💰", iconCss = "e-icons e-icon4" },
+        // Add more options as needed
+    };
+}
+
 <h1>Create</h1>
 
 <h4>Category</h4>
@@ -12,21 +29,25 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <ejs-textbox id="title" placeholder="Title" value="Title" floatLabelType="Always"></ejs-textbox>
+            <div class="mb-3">
+                <ejs-textbox id="title" placeholder="Title" ejs-for="@Model.Title" floatLabelType="Always"></ejs-textbox>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Icon" class="control-label"></label>
-                <input asp-for="Icon" class="form-control" />
+                <ejs-dropdownlist id="icon" asp-for="Icon" floatLabelType="Always" dataSource="iconOptions">
+                    <e-dropdownlist-fields text="text" iconCss="iconCss"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
                 <span asp-validation-for="Icon" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="mb-3">
                 <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <ejs-dropdownlist id="type" asp-for="Type" dataSource="typeOptions" floatLabelType="Always" cssClass="form-control"></ejs-dropdownlist>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
